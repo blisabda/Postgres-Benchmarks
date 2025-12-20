@@ -23,6 +23,14 @@ The benchmarks measure transactions per second (TPS) under standard `pgbench` wo
 - **Deployment Trends**: PG16 favors Kubernetes; PG18 shows deployment-agnostic performance
 - **Resource Utilization**: PG18 better utilizes allocated resources regardless of orchestration
 
+## Performance Visualizations
+
+**PostgreSQL 16: Docker vs Kubernetes Performance**
+![PG16 Performance Comparison](PG16/plots/performance_comparison.png)
+
+**PostgreSQL 18: Docker vs Kubernetes Performance**
+![PG18 Performance Comparison](PG18/plots/performance_comparison.png)
+
 ## Benchmark Configurations
 
 | Config | CPU Cores | Memory | Use Case |
@@ -54,14 +62,6 @@ Each version directory contains a `PERFORMANCE_REPORT.md` with:
 - Performance difference analysis
 - Raw benchmark data
 - Visual performance charts
-
-### Performance Visualizations
-
-**PostgreSQL 16: Docker vs Kubernetes Performance**
-![PG16 Performance Comparison](PG16/plots/performance_comparison.png)
-
-**PostgreSQL 18: Docker vs Kubernetes Performance**
-![PG18 Performance Comparison](PG18/plots/performance_comparison.png)
 
 ### Key Insights for Deployment
 
