@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pg-init-config
+data:
+  init.sql: |
+    DROP TABLE IF EXISTS test_data;
+    CREATE TABLE test_data (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(50),
+      value INTEGER
+    );
