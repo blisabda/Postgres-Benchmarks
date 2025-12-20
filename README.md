@@ -1,13 +1,6 @@
-# Postgres-Benchmarks
+# PostgreSQL Performance Research: Docker vs Kubernetes
 
-A comprehensive benchmarking suite for PostgreSQL performance analysis across different versions, resource configurations, and deployment environments (Docker vs Kubernetes).
-
-## Overview
-
-This repository provides automated tools to benchmark PostgreSQL performance using `pgbench`, comparing:
-- **Versions**: PostgreSQL 16 vs 18
-- **Deployments**: Docker containers vs Kubernetes pods
-- **Resources**: 16 different CPU/memory configurations (1-4 CPUs × 1-8GB RAM)
+A comprehensive analysis of PostgreSQL performance across different versions, resource configurations, and deployment environments. This repository contains research results comparing Docker containers and Kubernetes pods across 16 resource configurations for PostgreSQL 16 and 18.
 
 The benchmarks measure transactions per second (TPS) under standard `pgbench` workloads, helping developers and system administrators make informed decisions about PostgreSQL deployment strategies.
 
