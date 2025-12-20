@@ -7,21 +7,21 @@ The benchmarks measure transactions per second (TPS) under standard `pgbench` wo
 ## Key Findings
 
 ### PostgreSQL 16 Performance
-- **Kubernetes Advantage**: K8s consistently outperforms Docker, with performance gains of 15-47%
-- **CPU Scaling**: Higher CPU cores show the most significant improvements in Kubernetes
-- **Memory Impact**: Performance benefits are more pronounced with adequate memory allocation
-- **Best Configuration**: Config 14 (4 CPUs, 2GB RAM) shows 47.2% improvement in K8s vs Docker
+- **🚀 Kubernetes Advantage**: K8s consistently outperforms Docker, with performance gains of 15-47%
+- **⚡ CPU Scaling**: Higher CPU cores show the most significant improvements in Kubernetes
+- **🧠 Memory Impact**: Performance benefits are more pronounced with adequate memory allocation
+- **🏆 Best Configuration**: Config 14 (4 CPUs, 2GB RAM) shows 47.2% improvement in K8s vs Docker
 
 ### PostgreSQL 18 Performance
-- **Performance Parity**: Docker and Kubernetes show nearly identical performance (±0-3% difference)
-- **Maturity Benefits**: PG18 demonstrates significant overall performance improvements over PG16
-- **Resource Efficiency**: More consistent performance across different resource allocations
-- **Deployment Flexibility**: Choice between Docker/K8s has minimal performance impact
+- **⚖️ Performance Parity**: Docker and Kubernetes show nearly identical performance (±0-3% difference)
+- **🎯 Maturity Benefits**: PG18 demonstrates significant overall performance improvements over PG16
+- **🔄 Resource Efficiency**: More consistent performance across different resource allocations
+- **🎛️ Deployment Flexibility**: Choice between Docker/K8s has minimal performance impact
 
 ### Version Comparison
-- **PG18 vs PG16**: 40-50% performance improvement across all configurations
-- **Deployment Trends**: PG16 favors Kubernetes; PG18 shows deployment-agnostic performance
-- **Resource Utilization**: PG18 better utilizes allocated resources regardless of orchestration
+- **📊 PG18 vs PG16**: 40-50% performance improvement across all configurations
+- **📈 Deployment Trends**: PG16 favors Kubernetes; PG18 shows deployment-agnostic performance
+- **💪 Resource Utilization**: PG18 better utilizes allocated resources regardless of orchestration
 
 ## Performance Visualizations
 
