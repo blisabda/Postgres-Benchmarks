@@ -148,22 +148,6 @@ Each version directory contains a `PERFORMANCE_REPORT.md` with:
 - Monitor actual workload patterns for optimal sizing
 
 
-## Educational Value
-
-This repository serves as:
-- **Performance Reference**: Real-world PostgreSQL performance data
-- **Deployment Guide**: Evidence-based recommendations for Docker vs K8s
-- **Version Comparison**: Performance evolution across PostgreSQL versions
-- **Methodology Example**: Reproducible benchmarking framework
-
-[^stat]: Statistical significance not established due to single-run methodology per configuration; results represent point estimates only with no error bars, standard deviation, or confidence intervals.
-
-[^latency]: Latency metrics (average transaction latency) are available in raw pgbench output but not analyzed or compared in this report.
-
-[^method]: Tests lack details on isolation between runs, warm-up periods, or baseline validation; potential interference between configurations not assessed.
-
-[^resource]: No system resource utilization monitoring (CPU, memory, I/O) was performed during benchmarks.
-
 ## Architectural Insights: Deployment Performance Differences
 
 ### Why Kubernetes Outperforms Docker in PG16 but Not PG18
@@ -193,3 +177,20 @@ The observed performance differences between Docker and Kubernetes deployments a
 **Overall Efficiency Trends:**
 - PG18 demonstrates 40-50% performance improvement over PG16, largely independent of deployment method.
 - The convergence of Docker/Kubernetes performance in PG18 suggests PostgreSQL's evolution toward more self-contained optimization, reducing infrastructure dependency.
+
+
+## Disclaimer
+
+This repository serves as:
+- **Performance Reference**: Real-world PostgreSQL performance data
+- **Deployment Guide**: Evidence-based recommendations for Docker vs K8s
+- **Version Comparison**: Performance evolution across PostgreSQL versions
+- **Methodology Example**: Reproducible benchmarking framework
+
+[^stat]: Statistical significance not established due to single-run methodology per configuration; results represent point estimates only with no error bars, standard deviation, or confidence intervals.
+
+[^latency]: Latency metrics (average transaction latency) are available in raw pgbench output but not analyzed or compared in this report.
+
+[^method]: Tests lack details on isolation between runs, warm-up periods, or baseline validation; potential interference between configurations not assessed.
+
+[^resource]: No system resource utilization monitoring (CPU, memory, I/O) was performed during benchmarks.
