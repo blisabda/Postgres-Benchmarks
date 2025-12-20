@@ -101,7 +101,7 @@ def create_plots(results, output_dir="plots"):
     ax1.set_ylabel('Transactions per Second (TPS)')
     ax1.set_title('TPS by Configuration: Docker vs K8s')
     ax1.set_xticks(x)
-    ax1.set_xticklabels([f'Config {c}' for c in common_configs])
+    ax1.set_xticklabels([f'Config {c}' for c in common_configs], rotation=45)
     ax1.legend()
     ax1.grid(True, alpha=0.3)
 
@@ -124,7 +124,7 @@ def create_plots(results, output_dir="plots"):
     ax3.set_ylabel('TPS Difference (K8s - Docker)')
     ax3.set_title('Performance Difference: K8s vs Docker')
     ax3.set_xticks(range(len(common_configs)))
-    ax3.set_xticklabels([f'Config {c}' for c in common_configs])
+    ax3.set_xticklabels([f'Config {c}' for c in common_configs], rotation=45)
     ax3.grid(True, alpha=0.3)
     ax3.axhline(y=0, color='black', linestyle='-', alpha=0.3)
 
@@ -137,7 +137,7 @@ def create_plots(results, output_dir="plots"):
     ax4.set_ylabel('Percentage Difference (%)')
     ax4.set_title('Relative Performance: K8s vs Docker')
     ax4.set_xticks(range(len(common_configs)))
-    ax4.set_xticklabels([f'Config {c}' for c in common_configs])
+    ax4.set_xticklabels([f'Config {c}' for c in common_configs], rotation=45)
     ax4.grid(True, alpha=0.3)
     ax4.axhline(y=0, color='black', linestyle='-', alpha=0.3)
 
