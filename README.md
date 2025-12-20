@@ -156,7 +156,6 @@ This repository serves as:
 - **Version Comparison**: Performance evolution across PostgreSQL versions
 - **Methodology Example**: Reproducible benchmarking framework
 
----
 
 [^stat]: Statistical significance not established due to single-run methodology per configuration; results represent point estimates only with no error bars, standard deviation, or confidence intervals.
 
