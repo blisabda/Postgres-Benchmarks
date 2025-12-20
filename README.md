@@ -133,7 +133,7 @@ Each version directory contains a `PERFORMANCE_REPORT.md` with:
 ### Key Insights for Deployment
 
 **Choose Kubernetes for PG16:**
-- Significant performance advantages (15-47% TPS improvement)[^version]
+- Significant performance advantages (15-47% TPS improvement)
 - Better resource utilization with higher CPU allocations
 - Recommended for production PG16 deployments
 
