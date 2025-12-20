@@ -1,4 +1,4 @@
-# PostgreSQL Performance Research: Docker vs Kubernetes
+# Performance Analysis: Docker vs Kubernetes and Postgres v16 vs v18
 
 A comprehensive analysis of PostgreSQL performance across different versions, resource configurations, and deployment environments. This repository contains research results comparing Docker containers and Kubernetes pods across 16 resource configurations for PostgreSQL 16 and 18.
 
