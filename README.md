@@ -147,7 +147,16 @@ Each version directory contains a `PERFORMANCE_REPORT.md` with:
 - CPU scaling benefits both versions
 - Monitor actual workload patterns for optimal sizing
 
-## Limitations and Notes
+
+## Educational Value
+
+This repository serves as:
+- **Performance Reference**: Real-world PostgreSQL performance data
+- **Deployment Guide**: Evidence-based recommendations for Docker vs K8s
+- **Version Comparison**: Performance evolution across PostgreSQL versions
+- **Methodology Example**: Reproducible benchmarking framework
+
+---
 
 [^stat]: Statistical significance not established due to single-run methodology per configuration; results represent point estimates only with no error bars, standard deviation, or confidence intervals.
 
@@ -158,11 +167,3 @@ Each version directory contains a `PERFORMANCE_REPORT.md` with:
 [^resource]: No system resource utilization monitoring (CPU, memory, I/O) was performed during benchmarks.
 
 [^version]: No architectural analysis provided explaining why Kubernetes outperforms Docker in PG16 but not PG18, or deeper resource efficiency comparisons.
-
-## Educational Value
-
-This repository serves as:
-- **Performance Reference**: Real-world PostgreSQL performance data
-- **Deployment Guide**: Evidence-based recommendations for Docker vs K8s
-- **Version Comparison**: Performance evolution across PostgreSQL versions
-- **Methodology Example**: Reproducible benchmarking framework
