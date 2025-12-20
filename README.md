@@ -42,6 +42,11 @@ The benchmarks measure transactions per second (TPS) under standard `pgbench` wo
 
 ## Test Workload Details
 
+**Test Environment**:
+- **Hardware**: MacBook Pro M1
+- **Docker Desktop**: 8 CPUs, 12GB RAM allocated
+- **Kubernetes**: Local cluster via Docker Desktop
+
 **Data Scale**: pgbench scale factor 10
 - **accounts table**: ~1,000,000 rows
 - **tellers table**: ~10,000 rows  
