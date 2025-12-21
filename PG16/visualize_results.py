@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 import os
 import glob
 from datetime import datetime
+import platform
+import subprocess
 
 # Configuration details
 CONFIGS = {
@@ -25,6 +27,49 @@ CONFIGS = {
     15: {"cpu": "4.0", "ram": "4g", "cpu_val": 4.0, "ram_val": 4.0},
     16: {"cpu": "4.0", "ram": "8g", "cpu_val": 4.0, "ram_val": 8.0}
 }
+
+def get_system_info():
+    """Get system and container runtime information"""
+    info = {}
+    
+    # OS information
+    info['os'] = f"{platform.system()} {platform.release()}"
+    info['architecture'] = platform.machine()
+    
+    try:
+        # Docker version
+        docker_version = subprocess.run(['docker', '--version'], capture_output=True, text=True, timeout=10)
+        info['docker_version'] = docker_version.stdout.strip() if docker_version.returncode == 0 else "Not available"
+        
+        # Docker system info
+        docker_info = subprocess.run(['docker', 'system', 'info'], capture_output=True, text=True, timeout=10)
+        if docker_info.returncode == 0:
+            lines = docker_info.stdout.split('\n')
+            for line in lines:
+                if 'CPUs:' in line:
+                    info['docker_cpus'] = line.split(':', 1)[1].strip()
+                elif 'Total Memory:' in line:
+                    info['docker_memory'] = line.split(':', 1)[1].strip()
+                elif 'Default Runtime:' in line:
+                    info['docker_runtime'] = line.split(':', 1)[1].strip()
+        
+        # Kubernetes version
+        kubectl_version = subprocess.run(['kubectl', 'version', '--client', '--short'], capture_output=True, text=True, timeout=10)
+        info['kubectl_version'] = kubectl_version.stdout.strip() if kubectl_version.returncode == 0 else "Not available"
+        
+        # Kubernetes nodes info
+        nodes_info = subprocess.run(['kubectl', 'get', 'nodes', '-o', 'wide'], capture_output=True, text=True, timeout=10)
+        if nodes_info.returncode == 0:
+            lines = nodes_info.stdout.split('\n')
+            if len(lines) > 1:
+                header = lines[0]
+                node_line = lines[1]
+                info['k8s_node_info'] = node_line
+        
+    except Exception as e:
+        info['error'] = str(e)
+    
+    return info
 
 def load_results():
     """Load all config results into a dictionary organized by mode"""
@@ -152,10 +197,29 @@ def generate_markdown(results, output_dir="plots"):
     docker_configs = sorted(results['docker'].keys())
     k8s_configs = sorted(results['k8s'].keys())
     common_configs = sorted(set(docker_configs) & set(k8s_configs))
+    
+    system_info = get_system_info()
 
     md_content = f"""# PostgreSQL 16 Performance Analysis Report: Docker vs Kubernetes
 
 **Generated on:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+
+## System Environment
+
+### Hardware & OS
+- **Operating System**: {system_info.get('os', 'Unknown')}
+- **Architecture**: {system_info.get('architecture', 'Unknown')}
+
+### Container Runtimes
+- **Docker Version**: {system_info.get('docker_version', 'Unknown')}
+- **Docker CPUs**: {system_info.get('docker_cpus', 'Unknown')}
+- **Docker Memory**: {system_info.get('docker_memory', 'Unknown')}
+- **Docker Runtime**: {system_info.get('docker_runtime', 'Unknown')}
+- **Kubernetes Client**: {system_info.get('kubectl_version', 'Unknown')}
+
+### Kubernetes Cluster
+```
+{system_info.get('k8s_node_info', 'No cluster information available')}
 
 ## Overview
 

@@ -1,6 +1,23 @@
 # PostgreSQL 18 Performance Analysis Report: Docker vs Kubernetes
 
-**Generated on:** 2025-12-20 22:45:44
+**Generated on:** 2025-12-21 11:33:19
+
+## System Environment
+
+### Hardware & OS
+- **Operating System**: Darwin 24.6.0
+- **Architecture**: arm64
+
+### Container Runtimes
+- **Docker Version**: Docker version 29.1.3, build f52814d
+- **Docker CPUs**: 8
+- **Docker Memory**: 11.67GiB
+- **Docker Runtime**: runc
+- **Kubernetes Client**: Not available
+
+### Kubernetes Cluster
+```
+docker-desktop   Ready    control-plane   18h   v1.34.1   192.168.65.3   <none>        Docker Desktop   6.12.54-linuxkit   docker://29.1.3
 
 ## Overview
 
