@@ -40,6 +40,24 @@ The benchmarks measure transactions per second (TPS) under standard `pgbench` wo
 **PostgreSQL 18: Docker vs Kubernetes Performance**
 ![PG18 Performance Comparison](PG18/plots/performance_comparison.png)
 
+**PostgreSQL 16 vs 18 Performance Comparison**
+![Version Comparison](plots/version_comparison.png)
+
+## Generating Visualizations
+
+To regenerate the performance plots:
+
+1. **Individual Version Plots**: Run the visualization scripts in each version directory:
+   ```bash
+   cd PG16 && python3 visualize_results.py
+   cd ../PG18 && python3 visualize_results.py
+   ```
+
+2. **Version Comparison Plot**: Run the comparison script from the root directory:
+   ```bash
+   python3 compare_versions.py
+   ```
+
 ## Benchmark Configurations
 
 | Config | CPUs | Memory(GB) | Use Case |
