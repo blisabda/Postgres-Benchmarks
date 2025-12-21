@@ -43,21 +43,6 @@ The benchmarks measure transactions per second (TPS) under standard `pgbench` wo
 **PostgreSQL 16 vs 18 Performance Comparison**
 ![Version Comparison](plots/version_comparison.png)
 
-## Generating Visualizations
-
-To regenerate the performance plots:
-
-1. **Individual Version Plots**: Run the visualization scripts in each version directory:
-   ```bash
-   cd PG16 && python3 visualize_results.py
-   cd ../PG18 && python3 visualize_results.py
-   ```
-
-2. **Version Comparison Plot**: Run the comparison script from the root directory:
-   ```bash
-   python3 compare_versions.py
-   ```
-
 ## Benchmark Configurations
 
 | Config | CPUs | Memory(GB) | Use Case |
@@ -77,18 +62,18 @@ This analysis uses PostgreSQL's built-in `pgbench` benchmarking tool, which simu
 
 ### Benchmark Configuration
 
-**Database Schema** (Scale Factor: 10):
-- **accounts table**: ~1,000,000 rows (10,000 accounts × 100 branches)
-- **tellers table**: ~10,000 rows (10 tellers × 100 branches)  
-- **branches table**: ~100 rows
-- **history table**: Grows during benchmark execution (audit trail)
-
-**Test Parameters**:
-- **Clients**: 10 concurrent connections per test
-- **Transactions per client**: 1,000 transactions each
-- **Total transactions**: 10,000 per configuration
-- **Transaction isolation**: Default (READ COMMITTED)
-- **Connection pooling**: Direct connections (no connection pooling middleware)
+| Parameter | Details |
+|-----------|---------|
+| Database Schema (Scale Factor) | 10 |
+| Accounts Table | ~1,000,000 rows (10,000 accounts × 100 branches) |
+| Tellers Table | ~10,000 rows (10 tellers × 100 branches) |
+| Branches Table | ~100 rows |
+| History Table | Grows during benchmark execution (audit trail) |
+| Clients | 10 concurrent connections per test |
+| Transactions per Client | 1,000 transactions each |
+| Total Transactions | 10,000 per configuration |
+| Transaction Isolation | Default (READ COMMITTED) |
+| Connection Pooling | Direct connections (no connection pooling middleware) |
 
 ### Transaction Mix (TPC-B Standard)
 
@@ -106,7 +91,7 @@ This analysis uses PostgreSQL's built-in `pgbench` benchmarking tool, which simu
 
 **Initialization**:
 ```bash
-pgbench -i -s 10 postgres  # Create schema with scale factor 10
+pgbench -i -s 10 postgres  # Create schema with scale factor 10 (= 1M rows)
 ```
 
 **Benchmark Run**:
@@ -139,15 +124,6 @@ pgbench -c 10 -t 1000 -P 10 postgres  # 10 clients, 1000 transactions each, prog
 
 ## Results Analysis
 
-### Performance Reports
-
-| Content | Description |
-|---------|-------------|
-| Detailed TPS comparisons | Comprehensive tables showing transactions per second for each of the 16 resource configurations, with direct Docker vs Kubernetes comparisons and percentage differences |
-| Performance difference analysis | Statistical analysis of performance variations between deployment methods, including average gains, standard deviations, and configuration-specific insights |
-| Raw benchmark data | Complete pgbench output files containing latency measurements, transaction counts, and timing data for reproducibility and detailed analysis |
-| Visual performance charts | Generated plots and graphs illustrating performance trends across CPU cores, memory allocations, and deployment methods for intuitive understanding |
-
 ### Key Insights for Deployment
 
 | Deployment Strategy | PostgreSQL Version | Key Points |
@@ -161,17 +137,14 @@ pgbench -c 10 -t 1000 -P 10 postgres  # 10 clients, 1000 transactions each, prog
 
 ### Why Kubernetes Outperforms Docker in PG16 but Not PG18
 
-The observed performance differences between Docker and Kubernetes deployments across PostgreSQL versions can be attributed to several architectural factors:
-
-**PostgreSQL 16 Characteristics:**
-- 🔴 **Resource Scheduling Sensitivity**: PG16's performance is more dependent on precise CPU and memory allocation. Kubernetes' advanced scheduling and resource management (via kube-scheduler and resource quotas) provide superior isolation and allocation compared to Docker's simpler container runtime.
-- 🟢 **Multi-Core Utilization**: The significant TPS gains in Kubernetes (15-47%) correlate with higher CPU core counts, suggesting Kubernetes' pod-level resource management better handles PostgreSQL's thread-based architecture.
-- **Overhead Trade-offs**: While Kubernetes adds orchestration overhead, in PG16 this is offset by better resource efficiency, especially under load.
-
-**PostgreSQL 18 Advancements:**
-- 🟢 **Internal Optimizations**: PG18 includes major performance improvements including enhanced parallel query execution, improved JIT compilation, and better memory management. These optimizations reduce the impact of external orchestration inefficiencies.
-- 🟢 **Container-Aware Design**: PG18's architecture is more container-optimized, with better handling of cgroup limitations and resource constraints, making deployment method less critical.
-- 🟢 **Reduced Overhead Sensitivity**: The near-parity between Docker and Kubernetes (±0-3%) indicates PG18's internal efficiencies minimize orchestration layer differences.
+| Aspect | PostgreSQL 16 | PostgreSQL 18 |
+|--------|---------------|---------------|
+| Resource Scheduling Sensitivity | 🔴 Performance more dependent on precise CPU/memory allocation. Kubernetes' advanced scheduling provides superior isolation compared to Docker | 🟢 Internal optimizations reduce impact of orchestration inefficiencies |
+| Multi-Core Utilization | 🟢 Significant TPS gains (15-47%) with higher CPU cores in Kubernetes due to better pod-level resource management | 🟢 Strong scaling with reduced orchestration dependency, deployment-agnostic |
+| Overhead Trade-offs | Orchestration overhead offset by better resource efficiency under load | 🟢 Container-aware design minimizes orchestration layer differences |
+| Internal Optimizations | N/A | 🟢 Enhanced parallel query execution, improved JIT compilation, better memory management |
+| Container Optimization | N/A | 🟢 Better handling of cgroup limitations and resource constraints |
+| Overhead Sensitivity | Performance dependent on orchestration sophistication | 🟢 Near-parity between Docker/Kubernetes (±0-3%) due to reduced sensitivity |
 
 ### Resource Efficiency Comparisons
 
@@ -181,16 +154,11 @@ The observed performance differences between Docker and Kubernetes deployments a
 | CPU Scaling | Benefits significantly from Kubernetes' distributed management (3-4 cores) | 🟢 Strong scaling with reduced orchestration dependency, deployment-agnostic |
 | Overall Efficiency | Performance dependent on orchestration sophistication | 🟢 40-50% improvement over PG16, independent of deployment method |
 
-**Overall Efficiency Trends:**
-- PG18 demonstrates 40-50% performance improvement over PG16, largely independent of deployment method.
-- The convergence of Docker/Kubernetes performance in PG18 suggests PostgreSQL's evolution toward more self-contained optimization, reducing infrastructure dependency.
-
-
 ## Disclaimer
 
 | Purpose | Description |
 |---------|-------------|
-| Performance Reference | Provides real-world PostgreSQL performance measurements across different versions and deployment scenarios to serve as a practical reference for system architects and developers |
+| Performance Reference | Provides real-world (small scale) PostgreSQL performance measurements across different versions and deployment scenarios to serve as a practical reference for system architects and developers |
 | Deployment Guide | Offers evidence-based recommendations for choosing between Docker and Kubernetes deployments based on observed performance characteristics and resource utilization patterns |
 | Version Comparison | Documents the performance evolution between PostgreSQL versions, highlighting improvements and changes in deployment behavior that affect infrastructure decisions |
 | Methodology Example | Demonstrates a reproducible benchmarking framework using standard tools and configurations that can be adapted for other database performance evaluation projects |
