@@ -42,7 +42,7 @@ The benchmarks measure transactions per second (TPS) under standard `pgbench` wo
 
 ## Benchmark Configurations
 
-| Config | CPU Cores | Memory(GB) | Use Case |
+| Config | CPUs | Memory(GB) | Use Case |
 |--------|-----------|--------|----------|
 | 1-4    | 1         | 1,2,4,8  | Low-resource environments such as development, testing, or small-scale applications with minimal concurrent users and basic transactional requirements |
 | 5-8    | 2         | 1,2,4,8  | Standard web applications including e-commerce sites, content management systems, and business applications serving moderate user loads with mixed read/write patterns |
