@@ -42,12 +42,12 @@ The benchmarks measure transactions per second (TPS) under standard `pgbench` wo
 
 ## Benchmark Configurations
 
-| Config | CPU Cores | Memory | Use Case |
+| Config | CPU Cores | Memory(GB) | Use Case |
 |--------|-----------|--------|----------|
-| 1-4    | 1         | 1,2,4,8 GB  | Low-resource environments such as development, testing, or small-scale applications with minimal concurrent users and basic transactional requirements |
-| 5-8    | 2         | 1,2,4,8 GB  | Standard web applications including e-commerce sites, content management systems, and business applications serving moderate user loads with mixed read/write patterns |
-| 9-12   | 3         | 1,2,4,8 GB  | High-throughput services such as API gateways, data processing pipelines, and real-time analytics platforms requiring consistent performance under sustained load |
-| 13-16  | 4         | 1,2,4,8 GB  | Enterprise workloads including large-scale databases, mission-critical applications, and systems handling thousands of concurrent transactions with high availability requirements |
+| 1-4    | 1         | 1,2,4,8  | Low-resource environments such as development, testing, or small-scale applications with minimal concurrent users and basic transactional requirements |
+| 5-8    | 2         | 1,2,4,8  | Standard web applications including e-commerce sites, content management systems, and business applications serving moderate user loads with mixed read/write patterns |
+| 9-12   | 3         | 1,2,4,8  | High-throughput services such as API gateways, data processing pipelines, and real-time analytics platforms requiring consistent performance under sustained load |
+| 13-16  | 4         | 1,2,4,8  | Enterprise workloads including large-scale databases, mission-critical applications, and systems handling thousands of concurrent transactions with high availability requirements |
 
 ## Test Workload Details
 
